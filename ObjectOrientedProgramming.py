@@ -76,3 +76,8 @@ set_attr() : 3 arguments : instanceReference attributeOfThatInstanceToInvoke val
 '''
 
 
+'''
+Google search term for tommorow
+closures , decorators and First class functions
+
+'''
