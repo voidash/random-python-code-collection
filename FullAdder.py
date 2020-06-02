@@ -7,6 +7,7 @@ class Bin(object):
         #check the types first 
         if isinstance(data,int):
             #converts integer into binary
+            
             if data >= 2:
                 self.bundle =[]
                 binary = bin(data)[2:]
@@ -86,8 +87,20 @@ class FullAdder(derivedGates):
       return (Sum,CarryOut)
 
 def inpOutLoop(num1,num2):
-    a = Bin(num1).bundle
-    b = Bin(num2).bundle
+
+    a = Bin(num1)
+    b = Bin(num2)
+    # this handles the error 
+    if hasattr(a,'bundle'):
+        a = a.bundle
+        
+    else:
+        a = [a]
+    if hasattr(b,'bundle'):
+        b = b.bundle
+    else:
+        b = [b]
+      
 
     lenA = len(a)
     lenB = len(b)
@@ -102,6 +115,7 @@ def output(dataFeed):
     carry = 0
     sum=0
     d=[]
+    #print(dataFeed)
     for data in dataFeed:
         sum,carry = FullAdder(*data,carry).eval()
         d.append(sum)
@@ -118,4 +132,3 @@ while flag:
     flagCheck=input("Another one(y/n)")
     if flagCheck == 'n': 
         flag = False
-    
