@@ -108,8 +108,26 @@ def inpOutLoop(num1,num2):
     
     while(len(a) != len(b)):
         a.insert(0,Bin(0)) if lenA<lenB else b.insert(0,Bin(0))
+    
+    print(" ",strOut(a),"  ",num1)
+    print("+",strOut(b),"  ",num2)
+    print("_________________")
     dataFeed=zip(a[::-1],b[::-1])
     return output(dataFeed)
+def strOut(data):
+    
+    data = data[:]  #because list is pass by reference we have to make a copy first so that it won't hamper our original array
+    flag = False
+    while(len(data) != 9):
+        data.insert(0,0)
+        
+        flag = True      
+    if flag == True:
+        data = data[::-1]
+    data = list(map(str,data))[::-1]
+    return f'{data[0]}  {"".join(data[1:])}' #data[0] is the one Most significant bit that our 8 bit can't accumulate.
+    # if output is greater than 255 then data[0] will act as carry part
+
 
 def output(dataFeed):
     carry = 0
@@ -120,15 +138,28 @@ def output(dataFeed):
         sum,carry = FullAdder(*data,carry).eval()
         d.append(sum)
     d.append(carry)
-    return d[::-1]
+    while len(d) != 9:
+        d.append(0)
+    #converting into string for join function to work
+    
+    decimalEquivalent=0
+    for index,singleDigit in enumerate(d):
+        decimalEquivalent += singleDigit * (2 ** (index))
+    print(f'  {strOut(d)}    {decimalEquivalent}')
 
 
 #main loop
 flag = True
 while flag:
-    num1 = int(input())
-    num2 = int(input())
-    print(inpOutLoop(num1,num2))
-    flagCheck=input("Another one(y/n)")
-    if flagCheck == 'n': 
-        flag = False
+    try:
+        num1 = int(input("enter 1st Number > ")) 
+        num2 = int(input("enter 2nd Number > "))
+        if num1 >= 0 and num1 <=255 and num2 >=0 and num2 <=255:
+            inpOutLoop(num1,num2)
+            flagCheck=input("Another one(y/n)")
+            if flagCheck == 'n': 
+                flag = False
+        else:
+            print("enter the value within the constraints")
+    except ValueError:
+        print("not a valid Number. Try it again")
