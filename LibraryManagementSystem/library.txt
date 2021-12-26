@@ -1,0 +1,4 @@
+1, English, Sarita Dewan, 10, $5 
+2, Maths, Bipul Chhetri, 5, $4
+3, Nepali, Ram Rai, 20, $2 
+4, Social, Laura Thapa, 15, $4
